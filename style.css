@@ -16,7 +16,7 @@ input, select, textarea {
 /* anchor style */
 
 a {
-  color: #222222;
+  color: #222;
   text-decoration: none;
 }
 
@@ -41,32 +41,23 @@ h3 {
     font-weight: bold;
   }
 
-/* =============================================================
-site-header
-============================================================= */
-
-
-.site-header {
-  padding-top: 20px;
-  padding-bottom: 20px;
+body, div, p, ul, ol, li, dl, dt, dd, table, th, td, img, figure, h1, h2, h3, h4, h5, h6, form, select {
+    margin: 0;
+    padding: 0;
 }
 
-.header-nav-list.contents-tidy {
-    align-items: center;
+*, *:before, *:after {
+    word-break: break-all;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-.body {
-  font-family: 'Noto Sans JP', sans-serif;
-  font-weight: 400;
-}
 
-.html {
-  font-size: 14px;
-  color: #222;
-}
+/*=============rayout===============*/
 
-.contents-width {
-  max-width: 1140px;
+.content-width {
+    max-width: 1140px;
     padding-left: 50px;
     padding-right: 50px;
     margin-left: auto;
@@ -77,6 +68,112 @@ site-header
 .contents-tidy {
     display: flex;
     justify-content: space-between;
+}
+
+/*================レスポンシブ　===============*/
+
+@media screen and (max-width: 1080px) {
+  .header-nav {
+    .header-nav-hamburger {
+      cursor: pointer;
+      display: block;
+      position: relative;
+      width: 30px;
+      height: 21px;
+      z-index: 100;
+    }
+
+    .header-nav-hamburger-line {
+      position: absolute;
+      top: 50%;
+      display: block;
+      width: 100%;
+      height: 3px;
+      background-color: #222222;
+      transform: translate(0, -50%);
+      border-radius: 10px;
+      transition: top .2s, transform .2s, opacity .3s;
+
+      &:first-child {
+        top: 0;
+      }
+
+      &:last-child {
+        top: 100%;
+      }
+    }
+
+    .is-active .header-nav-hamburger-line {
+      will-change: top;
+      transform: translate(20px, -50%);
+      opacity: 0;
+
+      &:first-child {
+        top: 50%;
+        transform: translate(0, -50%) rotate(45deg);
+        opacity: 1;
+      }
+
+      &:last-child {
+        top: 50%;
+        transform: translate(0, -50%) rotate(-45deg);
+        opacity: 1;
+      }
+    }
+
+    .header-nav-list {
+      overflow-y: scroll;
+      position: fixed;
+      top: 60px;
+      left: 100%;
+      width: 100%;
+      display: block;
+      padding-top: 20px;
+      padding-bottom: 75px;
+      transition: transform 0.5s;
+      z-index: 99;
+      background-color: rgba(0, 0, 0, 0.8);
+      -webkit-overflow-scrolling: touch;
+
+      &.is-active {
+        transform: translate3d(-100%, 0, 0);
+      }
+
+      &.is-scroll {
+        top: 60px;
+        bottom: 0;
+      }
+    }
+  }
+
+  .header-button-outline {
+    margin-top: 20px;
+  }
+
+  .header-nav {
+    .header-nav-list > li + li {
+      margin-left: 0;
+    }
+
+    .header-nav-item {
+      padding: 20px 0;
+
+      > span {
+        &:first-child {
+          font-size: 16px;
+          letter-spacing: 5px;
+          color: #FFFFFF;
+        }
+
+        &:last-child {
+          font-size: 12px;
+          margin-top: 10px;
+          color: #F79314;
+          letter-spacing: 2px;
+        }
+      }
+    }
+  }
 }
 
 @media screen and (min-width: 767px){
@@ -92,17 +189,65 @@ site-header
   }
 }
 
+/* =============================================================
+site-header ⇨　headerlogo and header-nav
+============================================================= */
+
+.site-header {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 100%;
+  position: absolute;
+  display: flex;
+}
+
+
 .header-logo > .header-logo-pc {
     width: auto;
     height: 20px;
+}
+
+.header-logo-pc {
+    border: 0;
+    vertical-align: middle;
+    float: left;
+    height: 20px;
+}
+
+
+.site-header .site-header-inner > :last-child {
+    display: inline-flex;
+}
+
+
+.header-nav-hamburger {
+  display: none;
+}
+
+.header-nav-list.contents-tidy {
+    align-items: center;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
 }
 
 .header-nav .header-nav-item {
     display: block;
 }
 
-.header-nav .header-nav-item > span:first-child {
-  font-family: 'Lato', sans-serif;
+
+a:-webkit-any-link {
+    cursor: pointer;
+}
+
+.header-nav .header-nav-list > li + li {
+    margin-left: 30px;
 }
 
 
@@ -116,6 +261,10 @@ site-header
     font-size: 10px;
 }
 
+.header-nav-list > li + li:last-child {
+    margin-left: 20px;
+}
+
 .header-button {
     width: 150px;
 }
@@ -125,30 +274,74 @@ site-header
     font-size: 12px;
 }
 
-.link-button {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  
-  background-color: #f79314;
-  border-radius: 30px;
-  text-decoration: none;
-  text-align: center;
-  align-items: center;
-  font-weight: bold;
-  width: 100%;
-  height: 60px;
-  
-  border: none;
-}
-
 .link-button:visited {
     color: #fff;
 }
 
+nav {
+    display: block;
+}
+
+.link-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #fff;
+    background-color: #f79314;
+    border-radius: 30px;
+    text-decoration: none;
+    text-align: center;
+    align-items: center;
+    font-weight: bold;
+    width: 100%;
+    height: 60px;
+    font-size: 20px;
+    border: none;
+}
+
+
+*, *:before, *:after {
+    word-break: break-all;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/* =============================================================
+first - view
+============================================================= */
+
+
+.top-hero-box .top-hero-text > span {
+    color: #f79314;
+}
+
+
 .link-button.no-subtitle {
     font-size: 16px;
 }
+
+.top-hero-button {
+    width :35%;
+}
+
+
+
+.top-hero-box .No1-notation {
+    margin: 0;
+    position: absolute;
+    top: 0;
+    right: -170px;
+}
+
+
+.top-hero-box .No1-notation img {
+    width: 154px;
+    height: 154px;
+}
+
+
+
 
 .section-top-hero {
     padding-top: 190px;
@@ -192,6 +385,54 @@ site-header
     padding-top: 132px;
 }
 
+.proviso p {
+    line-height: 1.5;
+    text-a
+}
+
+
+/* =============================================================
+02 ポテパンキャンプ学割～
+============================================================= */
+
+
+
+.banner-for-students {
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.link-button.inversion {
+    color: #f79314;
+    background-color: #fff;
+    margin-right: 10px;
+}
+
+.link-button span:first-child {
+    letter-spacing: 4px;
+    line-height: 1.5;
+    font-family: 'Lato', sans-serif;
+}
+
+.link-button span:last-child {
+    font-size: 14px;
+}
+
+
+.about-text h2 > span {
+    font-size: 50px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 900;
+}
+
+.about-text h2 {
+    font-size: 40px;
+    letter-spacing: 1px;
+}
+
+
+
+
 .main-section.top-about {
     background-color: #f79314;
     padding-top: 45px;
@@ -231,6 +472,9 @@ img
     line-height: 2.3;
 }
 
+
+
+
 .pc-dn {
     display: none !important;
 }
@@ -261,6 +505,11 @@ img
     padding-top: 75px;
     padding-bottom: 80px;
 }
+
+/* =============================================================
+03 ポテパンキャンプ特徴～
+============================================================= */
+
 
 .section-header.contents-tidy {
     flex-direction: column;
@@ -306,9 +555,8 @@ img
     margin-top: 60px;
 }
 
-.desc-list.list-number {
-    margin-top: 110px;
-}
+
+/*////////////-- 01 豊富な転職実績--////////////*/
 
 .desc-list > li {
     background-color: #fcfaf5;
@@ -338,18 +586,11 @@ img
     letter-spacing: 1px;
 }
 
-.desc-list .list-text {
-    font-size: 16px;
-    margin-top: 30px;
-    letter-spacing: 1.5px;
-    font-weight: 500;
-    line-height: 2;
+
+.desc-list.list-number {
+    margin-top: 110px;
 }
 
-.desc-list .example-title {
-    display: inline-block;
-    
-}
 
 .example-title-heading {
     display: inline-block;
@@ -365,37 +606,58 @@ img
     height: auto;
 }
 
-.desc-list .example-contents {
-    margin-top: 15px;
-}
 .example-contents.contents-tidy {
     flex-wrap: wrap;
 }
 
 .desc-list .example-contents > li {
     width: 25%;
-    padding: 10px 5px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-.desc-list .example-contents img {
-    width: 100%;
-    height: auto;
+
+.desc-list .list-text {
+    font-size: 16px;
+    margin-top: 30px;
+    letter-spacing: 1.5px;
+    font-weight: 500;
+    line-height: 2;
 }
 
-img {
-    border: 0;
-    vertical-align: middle;
-}
+
+/*///////////                            ////////////*/
+/*////////////-- 02 多くの受講者受入実績--////////////*/
 
 .desc-list > li + li {
     margin-top: 90px;
 }
 
-.desc-list > li {
-    background-color: #fcfaf5;
-    border-radius: 20px;
-    text-align: center;
-    padding: 40px;
+
+.contents-tidy {
+    display: flex;
+    justify-content: space-between;
+}
+
+.desc-list .list-title {
+    font-weight: bold;
+    font-size: 30px;
+    margin-top: -20px;
+    letter-spacing: 1px;
+}
+
+
+
+
+
+
+.desc-list .example-title {
+    display: inline-block;
+    
+}
+
+.desc-list .example.performance {
+    padding: 40px 70px;
 }
 
 .desc-list .list-text span {
@@ -410,6 +672,29 @@ img {
     padding: 40px 70px;
 }
 
+.desc-list .example-list {
+    margin: 0 -60px;
+}
+
+.desc-list .example-list > li {
+    padding: 0 60px;
+    width: calc(100% / 3);
+}
+
+.desc-list .example-list img {
+    width: 100%;
+    height: auto;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+.desc-list .example-list > li {
+    padding: 0 60px;
+    width: calc(100% / 3);
+}
+
 .desc-list .example {
     background-color: #fff;
     width: 100%;
@@ -418,10 +703,36 @@ img {
     padding: 30px;
 }
 
-.desc-list.list-number {
-    margin-top: 110px;
+.example-list {
+    display:  flex;
 }
 
+
+
+
+
+
+
+
+/* =============================================================
+　03　現役エンジニアが講師～
+============================================================= */
+
+.engineer-list .engineer-box {
+    background-color: #fff;
+    border-radius: 15px;
+    margin: 0 15px;
+    width: calc(100% / 3);
+}
+
+
+.engineer-media {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: bold;
+    padding: 20px;
+}
 
 .engineer-list {
     margin-top: 45px;
@@ -429,13 +740,46 @@ img {
     margin-right: -15px;
 }
 
-.main-section .section-header + .section-content {
-    margin-top: 60px;
+.engineer-name > span {
+    color: #f79314;
+    font-size: 14px;
 }
 
-/* ===============
- 04 ポテパンエラベルコース
-         ===========*/
+.engineer-text {
+    width: 100%;
+    position: relative;
+    background-color: #f6f6f6;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    text-align: start;
+}
+
+.desc-list > li {
+    background-color: #fcfaf5;
+    border-radius: 20px;
+    text-align: center;
+    padding: 40px;
+    
+
+.engineer-conpany-logo > img {
+    width: 100%;
+}
+
+.engineer-name.contents-tidy {
+    flex-direction: column;
+}
+
+.engineer-name {
+    text-align: start;
+    margin-left: 15px;
+    font-size: 20px;
+}
+
+
+/* =============================================================
+　04.POTEPAN CAMPの選べるコース～
+============================================================= */
 
 .main-section.top-potepan {
     position: relative;
@@ -444,6 +788,26 @@ img {
     padding-bottom: 80px;
     background-color: #f6f6f6;
 }
+
+
+.top-potepan .content-width {
+    background-image: url(https://camp.potepan.com/wp-content/themes/potepancamp/assets/images/bg-section-top-course.png);
+    background-size: 281px 275px;
+    background-repeat: no-repeat;
+    background-position: calc(100% - 50px) top;
+    padding-top: 35px;
+}
+
+
+
+.main-section .section-header + .section-content {
+    margin-top: 60px;
+}
+
+.course-title h3 {
+  font-size: 24px;
+}
+
 
 .main-section.top-potepan > .course-list {
     position: relative;
@@ -513,9 +877,20 @@ ul, ol {
     border: solid 3px;
 }
 
+
+.course.text {
+font-color: #f79314;
+}
+
 .course-title h3 {
-    font-size: 24px;
-    text-align: center;
+  font-size: 24px;
+
+  span {
+    font-size: 14px;
+    border-radius: 20px;
+    color: #FFFFFF;
+    margin-top: 5px;
+  }
 }
 
 .course-contents {
@@ -616,8 +991,25 @@ ul, ol {
     font-size: 14px;
 }
 
+.link-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #fff;
+    background-color: #f79314;
+    border-radius: 30px;
+    text-decoration: none;
+    text-align: center;
+    align-items: center;
+    font-weight: bold;
+    width: 40%;
+    height: 60px;
+    font-size: 20px;
+    border: none;
+}
 
-/* ===============
+
+/* =============
  05　サービスノ想い
          ===========*/
 .main-section.top-service, .main-section.top-works {
@@ -642,7 +1034,8 @@ ul, ol {
     font-size: 46px;
     font-weight: bold;
 }
-.message-title {
+
+.section-content .message-title {
     display: inline-block;
     font-size: 50px;
     color: #ff802c;
@@ -657,6 +1050,7 @@ ul, ol {
     font-family: 'Lato', sans-serif;
     font-weight: 900;
 }
+
 
 .message-contents.contents-tidy {
     align-items: center;
@@ -711,31 +1105,54 @@ p {
 
 /* ===============
  06 受講生ノ声
-         ===========*/
-         
+　　===========*/
+
+.main-section {
+    padding-top: 75px;
+    padding-bottom: 80px;
+}
+
 .section-header.contents-tidy {
     flex-direction: column;
     align-items: center;
-}
-
-.section-main-heading {
-    font-size: 46px;
-    font-weight: bold;
 }
 
 .main-section .section-header + .section-content {
     margin-top: 60px;
 }
 
+
+
 .interview-list {
     margin-left: -20px;
     margin-right: -20px;
 }
 
+.contents-tidy {
+    display: flex;
+    justify-content: space-between;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+
 .interview-list > li {
     padding-left: 20px;
     padding-right: 20px;
     width: calc(100% / 3);
+}
+
+
+.interview-media .interview-media-thumbnail {
+    position: relative;
+    padding-top: 100%;
+}
+
+.interview-media-thumbnail {
+    overflow: hidden;
 }
 
 .interview-media .interview-media-thumbnail img {
@@ -747,9 +1164,8 @@ p {
     left: 0;
 }
 
-@media screen and (min-width: 767px)
-.hover-scale {
-    transition: transform 0.2s;
+.pc-dn {
+    display: none !important;
 }
 
 .interview-media .interview-thumbnail-titlebox {
@@ -777,6 +1193,14 @@ p {
     border-top: 1px solid #fff;
 }
 
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
 .interview-media .interview-thumbnail-titlebox .interview-thumbnail-subtitle .name {
     font-size: 20px;
 }
@@ -794,89 +1218,27 @@ p {
 }
 
 
+.section-main-heading {
+    font-size: 46px;
+    font-weight: bold;
+}
+
+
+
 /* ===============
  07 運用するサービス
          ===========*/
-.main-section.top-potepan {
-    position: relative;
+.page-top-arrow {
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    border-left: solid 3px #f79214;
+    border-top: solid 3px #f79214;
+    transform: rotate(45deg);
+    text-decoration: none;
+    text-indent: 100%;
+    white-space: nowrap;
     overflow: hidden;
-    padding-top: 40px;
-    padding-bottom: 80px;
-    background-color: #f6f6f6;
-}
-
-.main-section.top-potepan > .course-list {
-    position: relative;
-    z-index: 1;
-}
-
-.top-potepan .content-width {
-    background-image: url(https://camp.potepan.com/wp-content/themes/potepancamp/assets/images/bg-section-top-course.png);
-    background-size: 281px 275px;
-    background-repeat: no-repeat;
-    background-position: calc(100% - 50px) top;
-    padding-top: 35px;
-}
-
-.section-header.contents-tidy {
-    flex-direction: column;
-    align-items: center;
-}
-
-.section-header h2 > span {
-    font-size: 50px;
-    font-family: 'Lato', sans-serif;
-    font-weight: 900;
-}
-
-.service-list > li {
-    padding-right: 20px;
-    padding-left: 20px;
-    width: calc(100% / 3);
-}
-
-.service-media-thumbnail.red {
-    border-color: #fc6803;
-}
-
-.service-media-thumbnail {
-    display: flex;
-    align-items: center;
-    background-color: #fff;
-    border: solid 2px;
-    border-radius: 10px;
-    padding: 0 20px;
-    height: 190px;
-    box-sizing: border-box;
-}
-
-img {
-    border: 0;
-    vertical-align: middle;
-}
-
-.service-media-text {
-    margin-top: 20px;
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 1.8;
-}
-
-.hover-text-color {
-    transition: 0.2s;
-}
-
-.service-media-thumbnail.green {
-    border-color: #08af77;
-}
-
-/*  フッター   */
-
-
-.site-footer {
-    padding-top: 80px;
-    padding-bottom: 40px;
-    background-color: #f79314;
 }
 
 .page-top-button.contents-tidy {
@@ -896,8 +1258,10 @@ img {
     transition: 0.2s;
 }
 
-.site-footer-main .footer-nav {
-    order: 2;
+.site-footer {
+    padding-top: 80px;
+    padding-bottom: 40px;
+    background-color: #f79314;
 }
 
 .footer-nav-item:link, .footer-nav-item:visited {
@@ -919,9 +1283,32 @@ img {
     margin-top: 30px;
 }
 
+a {
+    color: #222;
+    text-decoration: none;
+}
+
+.site-footer-main .footer-nav {
+    order: 2;
+}
+
+.site-footer-main .footer-character {
+    order: 3;
+    align-self: flex-end;
+}
+
 .footer-character > img {
     width: auto;
     height: 70px;
+}
+
+.site-footer-main .footer-info {
+    order: 1;
+}
+
+.footer-info {
+    display: block;
+    color: #fff;
 }
 
 .footer-info .footer-logo {
@@ -938,13 +1325,14 @@ img {
     margin-top: 25px;
 }
 
-.footer-info .footer-company + .footer-address {
-    margin-top: 10px;
-}
 
 .footer-info .footer-company, .footer-info .footer-address {
     font-size: 16px;
     font-weight: bold;
+}
+
+.footer-info .footer-company + .footer-address {
+    margin-top: 10px;
 }
 
 .footer-info .footer-address + .footer-social {
@@ -955,37 +1343,22 @@ img {
     display: flex;
 }
 
-.site-footer-main .footer-info {
-    order: 1;
+.footer-info .footer-social-item {
+    display: block;
+    max-width: 60px;
+}
+
+.footer-info .footer-social > li + li {
+    margin-left: 20px;
 }
 
 .site-footer .site-footer-main + .site-footer-sub {
     margin-top: 60px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.footer-copyright {
+    color: #fff;
+    font-size: 12px;
+}
 
 
